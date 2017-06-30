@@ -18,7 +18,7 @@ class CreateDateEntriesTable extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->date('entry_date')->index();
             $table->string('state', 16)->default('');
-            $table->date('entry_time')->nullable();
+            $table->time('entry_time')->nullable();
             $table->text('comments')->nullable();
             $table->timestamps();
 
