@@ -42,8 +42,24 @@ class User extends Authenticatable
         'last_login_at',
     ];
 
+    public function getFullNameAttribute()
+    {
+        $parts = [
+            data_get($this, 'first_name'),
+            data_get($this, 'last_name'),
+        ];
+
+        return preg_replace('/\s+/', ' ', implode(' ', $parts));
+    }
+
     public function entries()
     {
         return $this->hasMany(DateEntry::class);
+    }
+
+    public function weeklyEntries($week = null)
+    {
+        return $this->hasMany(DateEntry::class)
+            ->inWeek($week);
     }
 }

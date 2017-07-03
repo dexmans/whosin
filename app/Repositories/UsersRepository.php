@@ -12,4 +12,13 @@ class UsersRepository extends BaseRepository
     {
         return User::class;
     }
+
+    public function findAll($with = [], $columns = ['*'])
+    {
+        $this->makeModel();
+
+        return $this->model
+            ->with($with)
+            ->get($columns);
+    }
 }
