@@ -87,6 +87,14 @@ abstract class BaseRepository
         return $this->paramCollection->getParameterBag();
     }
 
+    public function find($key, array $with = [], $columns = ['*'])
+    {
+        $this->makeModel();
+
+        return $this->model->with($with)
+            ->find($key, $columns);
+    }
+
     /**
      * Find many entities by whereIn
      *
@@ -94,12 +102,12 @@ abstract class BaseRepository
      * @param string $whereIn
      * @param array $with
      */
-    public function findWhereIn($key, array $whereIn = [], array $with = array())
+    public function findWhereIn($key, array $whereIn = [], array $with = [], $columns = ['*'])
     {
         $this->makeModel();
 
         return $this->model->with($with)
             ->whereIn($key, $whereIn)
-            ->get();
+            ->get($columns);
     }
 }
