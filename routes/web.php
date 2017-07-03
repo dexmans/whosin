@@ -11,7 +11,15 @@
 |
 */
 
-Route::get('/', 'DashboardController@index');
-Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('dashboard/{year?}/{week?}', 'DashboardController@index')
+    ->where([
+        'year' => '(199\d|20[0-9]\d)',
+        'week' => '(5[0-3]|[1-4][0-9]|0?[1-9])'
+    ])
+    ->name('dashboard');
 
 Auth::routes();
+
+Route::get('/{year?}/{week?}', function($year = null, $week = null) {
+    return redirect()->route('dashboard', [$year, $week]);
+});

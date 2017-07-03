@@ -27,21 +27,21 @@ class DashboardController extends Controller
     /**
      * Show the application dashboard.
      *
+     * @param  int  $year
+     * @param  int  $week
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($year = null, $week = null)
     {
-        // @todo combine these in weekNav
-        $week = request()->get('week');
-        $dates = DateHelper::getDatesInWeek($week);
+        $dateNav = DateHelper::getDatesNavigation($year, $week);
 
-        $users = $this->usersRepository->findAll(['entries' => DateEntry::weekClosure($week)]);
+        $users = $this->usersRepository->findAll(['entries' => DateEntry::weekClosure($year, $week)]);
 
         // @todo move out of controller
         $users->each(function (&$user) {
             $user->entries = $user->entries->keyBy('entry_date')->sortBy('entry_date');
         });
 
-        return view('dashboard', compact('users', 'dates', 'week'));
+        return view('dashboard', compact('users', 'dateNav'));
     }
 }

@@ -53,16 +53,13 @@ class DateEntry extends BaseModel
      * Local scope for fetching entries in week X
      *
      * @param  Builder $query Query builder object
+     * @param  int     $year  Optional year number
      * @param  int     $week  Optional week number
      * @return Builder
      */
-    public function scopeInWeek($query, $week = null)
+    public function scopeInWeek($query, $year = null, $week = null)
     {
-        if (is_null($week)) {
-            $week = DateHelper::getCurrentWeekNr();
-        }
-
-        $weekDate = DateHelper::getDateByWeekNr($week);
+        $weekDate = DateHelper::getDateByWeekNr($year, $week);
 
         return $query->whereBetween('entry_date', [
             $weekDate->startOfWeek()->toDateString(),
@@ -70,13 +67,16 @@ class DateEntry extends BaseModel
         ]);
     }
 
-    public static function weekClosure($week = null)
+    /**
+     * Closure used in with
+     *
+     * @param  int     $year  Optional year number
+     * @param  int     $week  Optional week number
+     * @return Closure
+     */
+    public static function weekClosure($year = null, $week = null)
     {
-        if (is_null($week)) {
-            $week = DateHelper::getCurrentWeekNr();
-        }
-
-        $weekDate = DateHelper::getDateByWeekNr($week);
+        $weekDate = DateHelper::getDateByWeekNr($year, $week);
 
         return function ($query) use ($weekDate) {
             $query->whereBetween('entry_date', [

@@ -21,13 +21,13 @@ class DateEntriesRepository extends BaseRepository
         return $this->model;
     }
 
-    public function findByUserAndWeek(User $user, $week, $columns = ['*'])
+    public function findByUserAndWeek(User $user, $year, $week, $columns = ['*'])
     {
         $this->makeModel();
 
         return $this->model
             ->where('user_id', $user->id)
-            ->weeklyEntries($week)
+            ->weeklyEntries($year, $week)
             ->get($columns);
     }
 

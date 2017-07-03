@@ -57,9 +57,9 @@ class User extends Authenticatable
         return $this->hasMany(DateEntry::class);
     }
 
-    public function weeklyEntries($week = null)
+    public function weeklyEntries($year = null, $week = null)
     {
         return $this->hasMany(DateEntry::class)
-            ->inWeek($week);
+            ->inWeek($year, $week);
     }
 }
