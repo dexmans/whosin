@@ -30,8 +30,8 @@
               <th>&nbsp;</th>
               @foreach ($dateNav['dates'] as $date)
                 <th class="@if ($date['date'] == $dateNav['meta']['today'])light-green lighten-4 @elseif ($date['is_weekend']) grey lighten-3 @endif">
-                  {{ $date['day'] }}<br>
-                  {{ $date['date_formatted'] }}
+                  {{ $date['local_day'] }}<br>
+                  {{ $date['day'] }} {{ $date['local_month_short'] }}
                 </th>
               @endforeach
             </thead>

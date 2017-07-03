@@ -122,11 +122,15 @@ class DateHelper
             $date->startOfWeek();
             $date->addDays($i);
             $dates[] = [
-                'date'           => $date->format('Y-m-d'),
-                'date_formatted' => $date->format($format),
-                'day'            => $date->formatLocalized('%A'),
-                'day_of_week'    => $date->dayOfWeek,
-                'is_weekend'     => $date->isWeekend(),
+                'date'              => $date->format('Y-m-d'),
+                'date_formatted'    => $date->format($format),
+                'day'               => $date->format('j'),
+                'local_day'         => $date->formatLocalized('%A'),
+                'local_day_short'   => $date->formatLocalized('%a'),
+                'local_month'       => $date->formatLocalized('%B'),
+                'local_month_short' => $date->formatLocalized('%b'),
+                'day_of_week'       => $date->dayOfWeek,
+                'is_weekend'        => $date->isWeekend(),
             ];
         }
         return $dates;
@@ -155,12 +159,12 @@ class DateHelper
             'nav'   => [
                 'previous' => route('dashboard', [
                     self::getPreviousWeekNrYear($year, $week),
-                    self::getPreviousWeekNr($year, $week)
+                    self::getPreviousWeekNr($year, $week),
                 ]),
                 'current'  => route('dashboard', [self::getCurrentYear(), self::getCurrentWeekNr()]),
                 'next'     => route('dashboard', [
                     self::getNextWeekNrYear($year, $week),
-                    self::getNextWeekNr($year, $week)
+                    self::getNextWeekNr($year, $week),
                 ]),
             ],
         ];
