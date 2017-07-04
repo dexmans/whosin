@@ -41,11 +41,11 @@
             <tbody>
               @foreach ($users as $user)
                 <tr>
-                  <td>
+                  <td class="@if (auth()->user()->id == $user->id) light-blue lighten-5 @endif">
                     {{ $user->full_name }}
                   </td>
                   @foreach ($dateNav['dates'] as $userDate)
-                    <td class="centered @if ($userDate['date'] == $dateNav['meta']['today']) light-green lighten-4 @elseif ($userDate['is_weekend']) grey lighten-3 @endif">
+                    <td class="@if ($userDate['date'] == $dateNav['meta']['today']) light-green lighten-4 @elseif (auth()->user()->id == $user->id) light-blue lighten-5 @elseif ($userDate['is_weekend']) grey lighten-3 @endif">
                       @component('components.date-entry', [
                         'entryUser' => $user,
                         'entryDate' => $userDate,
