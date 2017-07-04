@@ -30,11 +30,13 @@ class AddAdditionalFieldsUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('last_login_at');
-            $table->dropColumn('is_active');
-            $table->dropColumn('timezone');
-            $table->dropColumn('last_name');
-            $table->dropColumn('first_name');
+            $table->dropColumn([
+                'last_login_at',
+                'is_active',
+                'timezone',
+                'last_name',
+                'first_name',
+            ]);
         });
     }
 }
