@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use App\Helpers\DateHelper;
 use TID\Models\BaseModel;
 
@@ -42,6 +43,14 @@ class DateEntry extends BaseModel
             self::STATE_TIME_FROM,
             self::STATE_TIME_UNTIL,
         ];
+    }
+
+    public function getEntryTimeAttribute($value)
+    {
+        if ($value) {
+            return Carbon::createFromFormat('H:i:s', $value)->format('H:i');
+        }
+        return null;
     }
 
     public function user()

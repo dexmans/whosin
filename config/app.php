@@ -176,6 +176,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\ObserverServiceProvider::class,
 
         // 3rd party
         Collective\Html\HtmlServiceProvider::class,

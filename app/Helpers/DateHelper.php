@@ -129,6 +129,7 @@ class DateHelper
                 'local_day_short'   => $date->formatLocalized('%a'),
                 'local_month'       => $date->formatLocalized('%B'),
                 'local_month_short' => $date->formatLocalized('%b'),
+                'year'              => $date->format('Y'),
                 'day_of_week'       => $date->dayOfWeek,
                 'is_weekend'        => $date->isWeekend(),
             ];

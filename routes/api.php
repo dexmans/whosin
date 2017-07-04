@@ -19,7 +19,10 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->prefix('v1')->group(function () {
 
-    Route::resource('date-entries', 'DateEntryController', ['except' => [
-        'create', 'edit',
-    ]]);
+    Route::resource('date-entries', 'DateEntryController', [
+        'as' => 'api',
+        'except' => [
+            'create', 'edit',
+        ]
+    ]);
 });

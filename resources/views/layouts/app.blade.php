@@ -100,6 +100,8 @@
     </div>
 
     <!-- Scripts -->
+    @yield('js-pre')
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('js-post')
 </body>
 </html>

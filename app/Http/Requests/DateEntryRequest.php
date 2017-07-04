@@ -15,7 +15,18 @@ class DateEntryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        $user  = auth()->user();
+        $entry = $this->date_entry ?? new DateEntry;
+
+        switch ($this->method()) {
+            case 'PUT':
+            case 'PATCH':
+                return $entry->user_id == $user->id;
+                break;
+
+            default:
+                return auth()->check();
+        }
     }
 
     /**
@@ -25,8 +36,8 @@ class DateEntryRequest extends FormRequest
      */
     public function rules()
     {
-        $user  = auth()->user;
-        $entry = DateEntry::find($this->date_entry);
+        $user  = auth()->user();
+        $entry = $this->date_entry ?? new DateEntry;
 
         switch ($this->method()) {
             case 'POST':

@@ -13,6 +13,6 @@ class DateEntryObserver extends BaseObserver
             return false;
         }
 
-        $entry->user_id = auth()->user->id;
+        $entry->user_id = auth()->user()->id;
     }
 }

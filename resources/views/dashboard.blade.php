@@ -4,11 +4,11 @@
   <div class="container">
     <div class="section">
 
-      <div class="row">
+{{--       <div class="row">
         <div class="col s10 offset-s1">
           Looking at week: {{ $dateNav['meta']['current_week'] }} - {{ reset($dateNav['dates'])['date'] }} / {{ end($dateNav['dates'])['date'] }}
         </div>
-      </div>
+      </div> --}}
 
       <div class="row">
         <div class="col s1 offset-s1">
@@ -27,7 +27,10 @@
 
           <table class="centered bordered highlight">
             <thead>
-              <th>&nbsp;</th>
+              <th>
+                Week {{ $dateNav['meta']['week'] }}<br>
+                {{ $dateNav['meta']['year'] }}
+              </th>
               @foreach ($dateNav['dates'] as $date)
                 <th class="@if ($date['date'] == $dateNav['meta']['today'])light-green lighten-4 @elseif ($date['is_weekend']) grey lighten-3 @endif">
                   {{ $date['local_day'] }}<br>
@@ -43,19 +46,11 @@
                   </td>
                   @foreach ($dateNav['dates'] as $userDate)
                     <td class="centered @if ($userDate['date'] == $dateNav['meta']['today']) light-green lighten-4 @elseif ($userDate['is_weekend']) grey lighten-3 @endif">
-                      {{-- @todo move to partial/component --}}
-                      @if ($user->entries->has($userDate['date']))
-                        @set('entry', $user->entries->get($userDate['date']))
-                        {{ $entry->state }}
-                      @else
-                        @if (auth()->user()->id == $user->id)
-                          <a class="btn-floating waves-effect waves-light blue">
-                            <i class="material-icons">add</i>
-                          </a>
-                        @else
-                          <i class="material-icons">info_outline</i>
-                        @endif
-                      @endif
+                      @component('components.date-entry', [
+                        'entryUser' => $user,
+                        'entryDate' => $userDate,
+                      ])
+                      @endcomponent
                     </td>
                   @endforeach
                 </tr>
