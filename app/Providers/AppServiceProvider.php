@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use DB;
 use Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,6 +15,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (DB::connection() instanceof \Illuminate\Database\SQLiteConnection) {
+            DB::statement(DB::raw('PRAGMA foreign_keys=1'));
+        }
+
         Blade::extend(function ($value, $compiler) {
             $value = preg_replace("/@set\('(.*?)'\,(.*)\)/", '<?php $$1 = $2; ?>', $value);
             return $value;
