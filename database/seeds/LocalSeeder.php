@@ -38,8 +38,9 @@ class LocalSeeder extends Seeder
     // seed a couple users, pw will be set to 'secret'
     private function seedUsers()
     {
+        $amountOfUsers = 5;
         $userCreds = [];
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= $amountOfUsers; $i++) {
             $userCreds[] = [
                 'name'  => "user{$i}",
                 'email' => "user{$i}@example.com",
@@ -60,7 +61,27 @@ class LocalSeeder extends Seeder
                 'user_id' => $user->id
             ];
 
-            factory(App\Models\DateEntry::class, rand(25, 50))->create($data);
+            // we need unique user/entry_dates
+            $entries = factory(App\Models\DateEntry::class, rand(25, 50))->make($data);
+
+            foreach ($entries as $entry) {
+                // never thought i would find a more or less acceptable usecase for labels
+                $retries = 0;
+                repeat:
+                try {
+                    $rs = $entry->save();
+                    $retries = 0;
+                } catch (\Illuminate\Database\QueryException $e) {
+                    $entry = factory(App\Models\DateEntry::class)->make();
+                    $retries++;
+                    // we don't want to loop forever, some retries are allowed
+                    if ($retries >= 10) {
+                        throw new \Exception('Can not generate unique user_id, entry_date combi');
+                    }
+                    // aybabtu
+                    goto repeat;
+                }
+            }
         });
     }
 }
