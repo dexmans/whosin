@@ -33,11 +33,12 @@ class DashboardController extends Controller
     {
         $dateNav = DateHelper::getDatesNavigation($year, $week);
 
-        $users = $this->usersRepository->findAll(['entries' => DateEntry::weekClosure($year, $week)]);
+        $users = $this->usersRepository
+            ->findAll(['entries' => DateEntry::weekClosure($year, $week)]);
 
         // @todo move out of controller
-        $users->each(function (&$user) {
-            $user->entries = $user->entries->keyBy('entry_date')->sortBy('entry_date');
+        $users->each(function ($user) {
+            $user->entries = $user->entries->keyBy('entry_date');
         });
 
         return view('dashboard', compact('users', 'dateNav'));

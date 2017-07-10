@@ -62,4 +62,15 @@ class User extends Authenticatable
         return $this->hasMany(DateEntry::class)
             ->inWeek($year, $week);
     }
+
+    /**
+     * Local scope for fetching active users only
+     *
+     * @param  Builder $query Query builder object
+     * @return Builder
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
 }

@@ -19,6 +19,7 @@ class UsersRepository extends BaseRepository
 
         return $this->model
             ->with($with)
+            ->active()
             ->get($columns);
     }
 }

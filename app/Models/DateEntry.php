@@ -91,7 +91,7 @@ class DateEntry extends BaseModel
             $query->whereBetween('entry_date', [
                 $weekDate->startOfWeek()->toDateString(),
                 $weekDate->endOfWeek()->toDateString()
-            ]);
+            ])->orderBy('entry_date');
         };
     }
 }
