@@ -17,7 +17,7 @@
 </head>
 <body>
     <div id="app">
-      <div class="navbar-fixed ">
+      <div class="navbar-fixed">
         <nav class="orange" role="navigation">
           <div class="nav-wrapper container">
             <a id="logo-container" href="{{ url('/') }}" class="brand-logo center">{{ config('app.name') }}</a>
