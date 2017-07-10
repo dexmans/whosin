@@ -31,6 +31,12 @@ class DashboardController extends Controller
      */
     public function index($year = null, $week = null)
     {
+        // move out of controller
+        if (($rs = $this->redirectIfInvalidWeek($year, $week)) !== true) {
+            return $rs;
+        }
+
+        // create service for this
         $dateNav = DateHelper::getDatesNavigation($year, $week);
 
         $users = $this->usersRepository
@@ -42,5 +48,25 @@ class DashboardController extends Controller
         });
 
         return view('dashboard', compact('users', 'dateNav'));
+    }
+
+    /**
+     * On top of route validation, redirect user to valid year/week combi
+     *
+     * Example:
+     * GET /dashboard/2017/53 > /dashboard/2018/1
+     *
+     * @param  [type] $year [description]
+     * @param  [type] $week [description]
+     * @return [type]       [description]
+     */
+    private function redirectIfInvalidWeek($year, $week)
+    {
+        $date = DateHelper::getDateByWeekNr($year, $week);
+
+        if ($year && $date->year != $year || $week && $date->weekOfYear != $week) {
+            return redirect()->route('dashboard', [$date->year, $date->weekOfYear]);
+        }
+        return true;
     }
 }

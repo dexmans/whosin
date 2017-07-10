@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 use Carbon\Carbon;
 
-// @todo create service from this
+// @todo create service for the navigation foo
 class DateHelper
 {
     public static function getCurrentYear()
