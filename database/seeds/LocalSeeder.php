@@ -72,7 +72,7 @@ class LocalSeeder extends Seeder
                     $rs = $entry->save();
                     $retries = 0;
                 } catch (\Illuminate\Database\QueryException $e) {
-                    $entry = factory(App\Models\DateEntry::class)->make();
+                    $entry = factory(App\Models\DateEntry::class)->make($data);
                     $retries++;
                     // we don't want to loop forever, some retries are allowed
                     if ($retries >= 10) {
