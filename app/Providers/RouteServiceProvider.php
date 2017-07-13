@@ -26,6 +26,7 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot();
 
         Route::model('date_entry', \App\Models\DateEntry::class);
+        Route::model('user', \App\Models\User::class);
     }
 
     /**

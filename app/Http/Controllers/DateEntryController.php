@@ -7,10 +7,8 @@ use App\Http\Requests\DateEntryRequest;
 use App\Repositories\DateEntriesRepository;
 use Illuminate\Http\Request;
 
-class DateEntryController extends Controller
+class DateEntryController extends RepositoryController
 {
-    protected $dateEntriesRepository;
-
     /**
      * Create a new controller instance.
      *
@@ -19,7 +17,7 @@ class DateEntryController extends Controller
      */
     public function __construct(DateEntriesRepository $dateEntriesRepository)
     {
-        $this->dateEntriesRepository = $dateEntriesRepository;
+        $this->repository = $dateEntriesRepository;
     }
 
     /**
@@ -30,7 +28,7 @@ class DateEntryController extends Controller
      */
     public function store(DateEntryRequest $request)
     {
-        $entry = $this->dateEntriesRepository->makeModel();
+        $entry = $this->repository->makeModel();
 
         $entry->fill($request->all());
         $entry->save();

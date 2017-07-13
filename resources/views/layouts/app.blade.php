@@ -20,16 +20,16 @@
       <div class="navbar-fixed">
         <nav class="orange" role="navigation">
           <div class="nav-wrapper container">
-            <a id="logo-container" href="{{ url('/') }}" class="brand-logo center">{{ config('app.name') }}</a>
+            <a id="logo-container" href="{{ route('dashboard') }}" class="brand-logo center">{{ config('app.name') }}</a>
             @if (Auth::check())
               <ul class="left hide-on-med-and-down">
-                <li><a href="{{ url('/') }}">Dashboard</a></li>
+                <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
               </ul>
             @endif
             @if (Auth::check())
               <!-- Authentication Links -->
               <ul id="dropdown_navbar_auth" class="dropdown-content" role="menu">
-                <li><a href="{{ url('/profile') }}">Profile</a></li>
+                <li><a href="{{ route('profile') }}">Profile</a></li>
                 <li>
                   <a href="{{ route('logout') }}"
                     onclick="event.preventDefault();

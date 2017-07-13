@@ -3,16 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Helpers\DateHelper;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\RepositoryController;
 use App\Http\Requests\DateEntryRequest;
 use App\Models\DateEntry;
 use App\Repositories\DateEntriesRepository;
 use Illuminate\Http\Request;
 
-class DateEntryController extends Controller
+class DateEntryController extends RepositoryController
 {
-    protected $dateEntriesRepository;
-
     /**
      * Create a new controller instance.
      *
@@ -21,7 +19,7 @@ class DateEntryController extends Controller
      */
     public function __construct(DateEntriesRepository $dateEntriesRepository)
     {
-        $this->dateEntriesRepository = $dateEntriesRepository;
+        $this->repository = $dateEntriesRepository;
     }
 
     /**
@@ -31,9 +29,9 @@ class DateEntryController extends Controller
      */
     public function index()
     {
-        $this->dateEntriesRepository->setRepoParameters(request()->all());
+        $this->repository->setRepoParameters(request()->all());
 
-        $entries = $this->dateEntriesRepository->getBuilder()->paginate();
+        $entries = $this->repository->getBuilder()->paginate();
 
         return response()->json($entries);
     }
@@ -62,7 +60,7 @@ class DateEntryController extends Controller
      */
     public function show($id)
     {
-        $entry = $this->dateEntriesRepository->find($id);
+        $entry = $this->repository->find($id);
         if (! $entry) {
             abort(404);
         }
@@ -79,7 +77,7 @@ class DateEntryController extends Controller
      */
     public function update(DateEntryRequest $request, $id)
     {
-        $entry = $this->dateEntriesRepository->find($id);
+        $entry = $this->repository->find($id);
         if (! $entry) {
             abort(404);
         }
@@ -98,7 +96,7 @@ class DateEntryController extends Controller
      */
     public function destroy($id)
     {
-        $entry = $this->dateEntriesRepository->find($id);
+        $entry = $this->repository->find($id);
         if (! $entry) {
             abort(404);
         }

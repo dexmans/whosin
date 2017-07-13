@@ -7,10 +7,8 @@ use App\Models\DateEntry;
 use App\Repositories\UsersRepository;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class DashboardController extends RepositoryController
 {
-    protected $usersRepository;
-
     /**
      * Create a new controller instance.
      *
@@ -19,7 +17,7 @@ class DashboardController extends Controller
      */
     public function __construct(UsersRepository $usersRepository)
     {
-        $this->usersRepository = $usersRepository;
+        $this->repository = $usersRepository;
     }
 
     /**
@@ -39,7 +37,7 @@ class DashboardController extends Controller
         // create service for this
         $dateNav = DateHelper::getDatesNavigation($year, $week);
 
-        $users = $this->usersRepository
+        $users = $this->repository
             ->findAll(['entries' => DateEntry::weekClosure($year, $week)]);
 
         // @todo move out of controller

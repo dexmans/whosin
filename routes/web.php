@@ -28,6 +28,13 @@ Route::middleware('auth')->group(function() {
         ]
     ]);
 
+    Route::resource('users', 'UserController', [
+        'only' => [
+            'edit', 'update', 'destroy',
+        ]
+    ]);
+    Route::get('profile', 'UserController@profile')->name('profile');
+
     Route::get('/{year?}/{week?}', function($year = null, $week = null) {
         return redirect()->route('dashboard', [$year ?? date('Y'), $week ?? date('W')]);
     });
