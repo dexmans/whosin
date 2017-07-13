@@ -42,8 +42,9 @@ class LocalSeeder extends Seeder
         $userCreds = [];
         for ($i = 1; $i <= $amountOfUsers; $i++) {
             $userCreds[] = [
-                'name'  => "user{$i}",
-                'email' => "user{$i}@example.com",
+                'name'      => "user{$i}",
+                'email'     => "user{$i}@example.com",
+                'is_active' => 1,
             ];
         }
 
@@ -56,9 +57,9 @@ class LocalSeeder extends Seeder
     // create 25 to 50 entries per user
     private function seedDateEntries()
     {
-        $this->users->each(function($user) {
+        $this->users->each(function ($user) {
             $data = [
-                'user_id' => $user->id
+                'user_id' => $user->id,
             ];
 
             // we need unique user/entry_dates
