@@ -12,7 +12,7 @@ class DateEntryObserver extends BaseObserver
     {
         if (app()->runningInConsole()) {
             if (! $entry->user_id) {
-                throw new \Exception('When in CLI, make sure you set the user');
+                throw new Exception('When in CLI, make sure you set the user');
             }
             return true;
         }

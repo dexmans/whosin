@@ -25,13 +25,13 @@ class AppServiceProvider extends ServiceProvider
             return $value;
         });
 
-        DB::listen(function ($query) {
-            Log::info($query->sql);
-            Log::info($query->bindings);
-            // $query->sql
-            // $query->bindings
-            // $query->time
-        });
+        // DB::listen(function ($query) {
+        //     Log::info($query->sql);
+        //     Log::info($query->bindings);
+        //     // $query->sql
+        //     // $query->bindings
+        //     // $query->time
+        // });
     }
 
     /**
