@@ -101,7 +101,7 @@
       $('#entry-{{ $entryUser->id }}-{{ $entryDate['date'] }}-modal input[name="state"]').change(function(e) {
         var $this = $(this);
         var $timeElm = $('#entry-{{ $entryUser->id }}-{{ $entryDate['date'] }}-modal input[name="entry_time"]');
-        if ($.inArray($this.val(), {!! json_encode(\App\Models\DateEntry::getTimeRelatedStates()) !!})) {
+        if ($.inArray($this.val(), {!! json_encode(\App\Models\DateEntry::getTimeRelatedStates()) !!}) === -1) {
           $timeElm.attr('disabled', true);
         } else {
           $timeElm.attr('disabled', false);
