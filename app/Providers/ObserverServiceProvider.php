@@ -14,6 +14,9 @@ class ObserverServiceProvider extends ServiceProvider
     public function boot()
     {
         \App\Models\DateEntry::observe(new \App\Observers\DateEntryObserver);
+        \App\Models\User::observe(new \App\Observers\UserObserver(
+            app(\Illuminate\Contracts\Hashing\Hasher::class)
+        ));
     }
 
     /**
